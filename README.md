@@ -149,7 +149,7 @@ CUDA_VISIBLE_DEVICES=0 python train_conditional_unet_w_chamfer_loss.py --config 
 
 ### Evaluation
 ```
-python eval_contition_unet_new.py --config config/eval_condition_unet_new.yaml
+python eval_contition_unet.py --config config/eval_condition_unet.yaml
 ```
 - `--config`: path to the eval config; set `ckpt_dir` in the config to point to your trained model checkpoint
 
