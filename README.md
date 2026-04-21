@@ -16,10 +16,8 @@
 
 <div align="center">
 
-<a href=''><img src='https://img.shields.io/badge/arXiv-2408.02555-b31b1b.svg'></a> &nbsp;&nbsp;&nbsp;&nbsp;
- <a href='https://shockwaveHe.github.io/ShapeAtalas/'><img src='https://img.shields.io/badge/Project-Page-Green'></a> &nbsp;&nbsp;&nbsp;&nbsp;
-<a href=""><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Weights-HF-orange"></a> &nbsp;&nbsp;&nbsp;&nbsp;
-<a href=""><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Gradio%20Demo-HF-orange"></a>
+<a href='https://arxiv.org/abs/2512.13991'><img src='https://img.shields.io/badge/arXiv-2408.02555-b31b1b.svg'></a> &nbsp;&nbsp;&nbsp;&nbsp;
+ <a href='https://shockwavehe.github.io/ShapeAtlas_website/'><img src='https://img.shields.io/badge/Project-Page-Green'></a> &nbsp;&nbsp;&nbsp;&nbsp;
 
 </div>
 
