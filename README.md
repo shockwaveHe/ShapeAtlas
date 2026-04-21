@@ -1,6 +1,7 @@
 <p align="center">
   <h3 align="center"><strong>ShapeAtlas: Repurposing 2D Diffusion Models for 3D Shape Completion</strong></h3>
 
+
 <p align="center">
     <a href="https://shockwavehe.github.io/">Yao He</a><sup>1</sup>,
     <a href="https://youngjoongunc.github.io/">Youngjoong Kwon</a><sup>1</sup>,
@@ -26,6 +27,7 @@
     <img src="demo/demo_video.gif" alt="Demo GIF" width="512px" />
 </p>
 
+### Official implementation of paper: Repurposing 2D Diffusion Models for 3D Shape Completion.
 
 ## Contents
 - [Contents](#contents)
