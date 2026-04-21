@@ -1,0 +1,72 @@
+# Stage 1 finetune the unet, run finetune_unet.py
+exp_name: 'finetune_unet'
+output_dir: 'output/finetune_unet'
+seed: 42
+resume_from_checkpoint: ''
+
+checkpointing_steps: 10000
+
+# Dataset configuration
+
+datasets: [ShapeNet, Objaverse]
+
+ShapeNet:
+  dataset_dir: 'data/ShapeNet_processed_1600_no_watertight'
+  train_split: 'shapeatlas_utils/shapenet_splits/train_test_split/train_split.txt'
+  test_split: 'shapeatlas_utils/shapenet_splits/train_test_split/test_split.txt'
+
+Objaverse:
+  dataset_dir: 'data/Objaverse_processed_1600_no_watertight'
+  train_split: 'shapeatlas_utils/objaverse_splits/train_test_val_split/train_split.txt'
+  test_split: 'shapeatlas_utils/objaverse_splits/train_test_val_split/test_split.txt'
+
+correspondence_file: "shapeatlas_utils/sph2grid_correspondences/correspondences_no_sort.npz"
+num_views: 16 # number of views per sample
+phase: 'train'
+mode: 'finetune'
+data:
+  train_bs: 4
+
+validation:
+  val_bs: 2
+  validation_steps: 1000
+
+solver:
+  gradient_accumulation_steps: 1
+  mixed_precision: 'fp16'
+  enable_xformers_memory_efficient_attention: True
+  use_flash_attention: True
+  gradient_checkpointing: False
+  max_train_steps: 200000
+  max_grad_norm: 1.0
+  # lr
+  learning_rate: 5.0e-5
+  scale_lr: False
+  lr_warmup_steps: 1
+  lr_scheduler: 'piecewise_constant'
+
+  # optimizer
+  use_8bit_adam: False
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_weight_decay:  1.0e-2
+  adam_epsilon: 1.0e-8
+
+noise_scheduler_kwargs:
+  num_train_timesteps: 1000
+  beta_start:          0.00085
+  beta_end:            0.012
+  beta_schedule:       "scaled_linear"
+  steps_offset:        1
+  clip_sample:         false
+
+base_model_path: pretrained_models/stable-diffusion-v1-5
+vae_model_path: pretrained_models/sd-vae-ft-mse
+image_encoder_path: pretrained_models/image_encoder
+
+pointcloud_reconstruction_loss_weight: 0.0  # set to 0.0 to disable chamfer loss
+weight_dtype: 'fp16'  # [fp16, fp32]
+uncond_ratio: 0.1
+noise_offset: 0.05
+snr_gamma: 5.0
+enable_zero_snr: True

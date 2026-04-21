@@ -1,0 +1,11 @@
+output/
+flash_attn-2.7.4.post1+cu12torch2.2cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
+__pycache__/
+.vscode/
+pretrained_models/
+wandb/
+shapeatlas_utils/camera_parameters
+baselines/
+samples/
+CLAUDE.md
+./claude

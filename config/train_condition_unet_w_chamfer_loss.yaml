@@ -1,0 +1,82 @@
+exp_name: 'train_conditional_unet'
+output_dir: 'output/train_conditional_unet_exp_output'
+seed: 42
+resume_from_checkpoint: ''
+
+checkpointing_steps: 10000
+
+# Dataset configuration
+freeze_gaussian_unet: False
+
+datasets: [ShapeNet, PCN]
+
+ShapeNet:
+  dataset_dir: 'data/ShapeNet_processed_1600_no_watertight'
+  train_split: 'shapeatlas_utils/shapenet_splits/full_train_test_split/train_split.txt'
+  test_split: 'shapeatlas_utils/shapenet_splits/full_train_test_split/test_split.txt'
+
+Objaverse:
+  dataset_dir: 'data/Objaverse_processed_1600_no_watertight'
+  train_split: 'shapeatlas_utils/objaverse_splits/train_test_val_split/train_split.txt'
+  test_split: 'shapeatlas_utils/objaverse_splits/train_test_val_split/test_split.txt'
+
+PCN:
+  dataset_dir: 'data/PCN_processed'
+  train_split: 'shapeatlas_utils/PCN_splits/train_test_splits/train_split_cleaned.txt'
+  test_split: 'shapeatlas_utils/PCN_splits/train_test_splits/test_split_cleaned.txt'
+
+correspondence_file: "shapeatlas_utils/sph2grid_correspondences/correspondences_no_sort.npz"
+num_views: 16 # number of views per sample
+phase: 'train'
+mode: 'train'
+data:
+  train_bs: 1
+
+validation:
+  val_bs: 1
+  validation_steps: 1000
+
+solver:
+  gradient_accumulation_steps: 1
+  mixed_precision: 'fp16'
+  enable_xformers_memory_efficient_attention: True
+  use_flash_attention: False
+  gradient_checkpointing: False
+  max_train_steps: 130000
+  max_grad_norm: 1.0
+  # lr
+  learning_rate: 1.0e-5
+  scale_lr: False
+  lr_warmup_steps: 1
+  lr_scheduler: 'constant'
+
+  # optimizer
+  use_8bit_adam: False
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_weight_decay:  1.0e-2
+  adam_epsilon: 1.0e-8
+
+noise_scheduler_kwargs:
+  num_train_timesteps: 1000
+  beta_start:          0.00085
+  beta_end:            0.012
+  beta_schedule:       "scaled_linear"
+  steps_offset:        1
+  clip_sample:         false
+
+pointcloud_reconstruction_loss_weight: 2e-1
+point_mesh_distance_loss_weight: 100.0
+use_normal: True
+use_info_loss: True
+
+base_model_path: pretrained_models/stable-diffusion-v1-5
+vae_model_path: pretrained_models/sd-vae-ft-mse
+image_encoder_path: pretrained_models/image_encoder
+ckpt_dir: 'pretrained_models/champ'
+
+weight_dtype: 'fp16'  # [fp16, fp32]
+uncond_ratio: 0.0
+noise_offset: 0.05
+snr_gamma: 5.0
+enable_zero_snr: True

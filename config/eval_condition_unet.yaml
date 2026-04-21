@@ -1,0 +1,32 @@
+exp_name: condition_unet_inference_debug
+
+seed: 42
+
+base_model_path: pretrained_models/stable-diffusion-v1-5
+vae_model_path: pretrained_models/sd-vae-ft-mse
+image_encoder_path: pretrained_models/image_encoder
+ckpt_step: 'latest'
+ckpt_dir: '' # set to your checkpoint path
+
+# Dataset configuration
+dataset_dir: 'data/ShapeNet_processed_tmp'
+train_split: 'shapeatlas_utils/shapenet_splits/train_test_split/train_split.txt'
+test_split: 'shapeatlas_utils/shapenet_splits/train_test_split/test_split.txt'
+
+num_views: 16 # number of views per sample
+phase: 'test'
+
+num_inference_steps: 20
+guidance_scale: 3.5
+enable_zero_snr: true
+weight_dtype: "fp32"
+
+noise_scheduler_kwargs:
+  num_train_timesteps: 1000
+  beta_start:          0.00085
+  beta_end:            0.012
+  beta_schedule:       "linear"
+  steps_offset:        1
+  clip_sample:         false
+
+enable_xformers_memory_efficient_attention: true
